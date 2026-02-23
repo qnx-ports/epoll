@@ -25,7 +25,9 @@
 #include <sys/iomsg.h>
 #include <sys/netmgr.h>
 #include <sys/neutrino.h>
+#ifdef SLOG2
 #include <sys/slog2.h>
+#endif
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -45,7 +47,9 @@
 // epoll_wait instead of using select.  There may be other file functionality
 // where use of a side coid will be problematic.
 
+#ifdef SLOG2
 #define DEBUG(fmt,...) slog2f(NULL, 0, SLOG2_DEBUG1, "[DEBUG] " fmt, ##__VA_ARGS__)
+#endif
 
 /* Comment out these lines to enable debug output */
 #undef DEBUG

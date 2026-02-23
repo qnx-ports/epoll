@@ -56,7 +56,9 @@ struct _iofunc_ocb;
 #include <sys/netmgr.h>
 #include <sys/queue.h>
 #include <sys/resmgr.h>
+#ifdef SLOG2
 #include <sys/slog2.h>
+#endif
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -65,10 +67,12 @@ struct _iofunc_ocb;
 
 #define ARRAY_ENTRIES(x) (sizeof (x) / sizeof (x)[0])
 
+#ifdef SLOG2
 #define FATAL(fmt,...) slog2f(NULL, 0, SLOG2_CRITICAL, "[FATAL] " fmt, ##__VA_ARGS__)
 #define ERROR(fmt,...) slog2f(NULL, 0, SLOG2_ERROR, "[ERROR] " fmt, ##__VA_ARGS__)
 #define WARN(fmt,...) slog2f(NULL, 0, SLOG2_WARNING, "[WARN] " fmt, ##__VA_ARGS__)
 #define DEBUG(fmt,...) slog2f(NULL, 0, SLOG2_DEBUG1, "[DEBUG] " fmt, ##__VA_ARGS__)
+#endif
 
 #define TAILQ_INIT_ENTRY(elm, field) \
 		do { (elm)->field.tqe_prev = NULL; (elm)->field.tqe_next = NULL; } while (0)
@@ -80,10 +84,10 @@ struct _iofunc_ocb;
 #undef DEBUG
 #define DEBUG(fmt, ...) do {} while(0)
 
-#ifdef NDEBUG
-	#define debug_log(...)
-#else
+#ifdef SLOG2
 	#define debug_log(...) (void)slogf(_SLOGC_TEST, _SLOG_DEBUG2, __VA_ARGS__)
+#else
+	#define debug_log(...)
 #endif
 
 #ifndef __RCVID_T_SIZE
