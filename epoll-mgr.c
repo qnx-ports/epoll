@@ -56,7 +56,7 @@ struct _iofunc_ocb;
 #include <sys/netmgr.h>
 #include <sys/queue.h>
 #include <sys/resmgr.h>
-#ifdef SLOG2
+#ifdef SLOG2_QNX
 #include <sys/slog2.h>
 #endif
 #include <sys/types.h>
@@ -67,7 +67,7 @@ struct _iofunc_ocb;
 
 #define ARRAY_ENTRIES(x) (sizeof (x) / sizeof (x)[0])
 
-#ifdef SLOG2
+#ifdef SLOG2_QNX
 #define FATAL(fmt,...) slog2f(NULL, 0, SLOG2_CRITICAL, "[FATAL] " fmt, ##__VA_ARGS__)
 #define ERROR(fmt,...) slog2f(NULL, 0, SLOG2_ERROR, "[ERROR] " fmt, ##__VA_ARGS__)
 #define WARN(fmt,...) slog2f(NULL, 0, SLOG2_WARNING, "[WARN] " fmt, ##__VA_ARGS__)
@@ -84,7 +84,7 @@ struct _iofunc_ocb;
 #undef DEBUG
 #define DEBUG(fmt, ...) do {} while(0)
 
-#ifdef SLOG2
+#ifdef SLOG2_QNX
 	#define debug_log(...) (void)slogf(_SLOGC_TEST, _SLOG_DEBUG2, __VA_ARGS__)
 #else
 	#define debug_log(...)
