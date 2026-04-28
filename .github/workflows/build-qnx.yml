@@ -1,0 +1,42 @@
+name: epoll build for QNX
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/build-qnx.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/qnx-ports/test/qnxe-sdp-env:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.PKG_TOKEN }}
+      options: --user root --device=/dev/kvm
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout build-files
+        uses: actions/checkout@v4
+        with:
+          repository: qnx-ports/build-files
+          path: build-files
+
+      - name: Checkout epoll
+        uses: actions/checkout@v4
+        with:
+          path: epoll
+
+      - name: Build epoll
+        run: |
+          cp -r /root/.qnx ~
+          source /root/qnx800/qnxsdp-env.sh
+          make -C build-files/ports/epoll install
