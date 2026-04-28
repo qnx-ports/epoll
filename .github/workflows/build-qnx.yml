@@ -20,10 +20,10 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.PKG_TOKEN }}
       options: --user root --device=/dev/kvm
-      defaults:
-        run:
-          shell: bash
-          working-directory: /root
+    defaults:
+      run:
+        shell: bash
+        working-directory: /root
     steps:
       - name: Checkout build-files
         uses: actions/checkout@v4
