@@ -37,5 +37,6 @@ jobs:
 
       - name: Build epoll
         run: |
+          cp -r /root/.qnx .
           source /root/qnx800/qnxsdp-env.sh
           make -C build-files/ports/epoll install
