@@ -23,7 +23,6 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /root
     steps:
       - name: Checkout build-files
         uses: actions/checkout@v4
@@ -38,5 +37,5 @@ jobs:
 
       - name: Build epoll
         run: |
-          source ~/qnx800/qnxsdp-env.sh
+          source /root/qnx800/qnxsdp-env.sh
           make -C build-files/ports/epoll install
